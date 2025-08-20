@@ -143,8 +143,7 @@
             padding: 1rem;
             flex-direction: column;
             gap: 0.5rem;
-            height: 120px; /* Fixed height for two boxes to fit */
-            width: 100%;
+            height: auto;
         }
 
         .btn-emergency:hover {
@@ -467,16 +466,6 @@
             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
             opacity: 0.9;
         }
-
-        /* Modified Emergency Panel Styling */
-        .card.gradient-emergency {
-            width: 400px; /* Adjusted width */
-            height: 300px; /* Adjusted height */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
     </style>
 </head>
 <body>
@@ -539,7 +528,7 @@
                     </h2>
                     <p class="text-sm opacity-90">Instant offline emergency assistance</p>
                 </div>
-                <div class="grid grid-cols-1 gap-4 w-full"> <!-- Adjusted to single column for two buttons -->
+                
                     <button class="btn btn-emergency" onclick="handleEmergency('cpr')">
                         <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -558,8 +547,11 @@
                             <div class="text-xs opacity-80">Quick access numbers</div>
                         </div>
                     </button>
-                </div>
-            </div>
+                    <button class="btn btn-emergency" onclick="handleEmergency('hospital')">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
 
             <!-- Health Categories -->
             <div id="health-categories" class="space-y-8">
@@ -895,4 +887,43 @@
                 const tagsHtml = advice.tags.map(tag => `<span class="badge">${tag}</span>`).join('');
                 
                 display.innerHTML = `
-                    <div class="card p-6" style="${style.borderColor}; background: hsl(var(--primary)
+                    <div class="card p-6" style="${style.borderColor}; background: hsl(var(--primary) / 0.1);">
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2 rounded-full bg-white shadow-sm">
+                                    <div class="${style.iconColor}">${style.icon}</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-semibold text-lg">${advice.title}</h3>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="badge badge-outline text-xs">${advice.confidence}% confidence</span>
+                                            <span class="text-green-600">✓</span>
+                                        </div>
+                                    </div>
+                                    <p class="leading-relaxed mb-4">${advice.content}</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${tagsHtml}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Event listeners
+        document.getElementById('input-textarea').addEventListener('input', updateSubmitButton);
+        document.getElementById('input-textarea').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitInput();
+            }
+        });
+
+        // Initialize
+        updateSubmitButton();
+    </script>
+</body>
+</html>
