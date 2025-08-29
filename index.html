@@ -1,284 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Health Without Signal - AI-Powered Offline Emergency Response</title>
-    <meta name="description" content="Offline AI health app providing emergency medical, plant, and women's health guidance through voice, image, and text input. Works without internet connectivity.">
-    <meta name="author" content="Smart Health Team">
-    <meta name="keywords" content="offline health app, AI medical advice, emergency response, PCOD care, plant health, women's health, offline medical guidance">
-    <meta property="og:title" content="Smart Health Without Signal - AI Emergency Response">
-    <meta property="og:description" content="AI-powered offline health guidance for medical, plant, and women's health emergencies. Multi-modal input with expert database.">
-    <meta property="og:type" content="website">
-    <style>
-        /* CSS Variables for Design System */
-        :root {
-            --background: 210 20% 98%;
-            --foreground: 215 25% 27%;
-            --card: 0 0% 100%;
-            --card-foreground: 215 25% 27%;
-            --primary: 200 100% 45%;
-            --primary-foreground: 0 0% 100%;
-            --primary-glow: 200 100% 60%;
-            --secondary: 145 100% 42%;
-            --secondary-foreground: 0 0% 100%;
-            --muted: 210 20% 95%;
-            --muted-foreground: 215 15% 50%;
-            --accent: 145 65% 48%;
-            --accent-foreground: 0 0% 100%;
-            --emergency: 0 85% 60%;
-            --emergency-foreground: 0 0% 100%;
-            --women-health: 315 85% 65%;
-            --women-health-foreground: 0 0% 100%;
-            --plant-health: 115 65% 50%;
-            --plant-health-foreground: 0 0% 100%;
-            --destructive: 0 84.2% 60.2%;
-            --destructive-foreground: 210 40% 98%;
-            --border: 210 20% 90%;
-            --input: 210 20% 95%;
-            --ring: 200 100% 45%;
-            --radius: 0.5rem;
-        }
-
-        .dark {
-            --background: 222.2 84% 4.9%;
-            --foreground: 210 40% 98%;
-            --card: 222.2 84% 4.9%;
-            --card-foreground: 210 40% 98%;
-            --primary: 210 40% 98%;
-            --primary-foreground: 222.2 47.4% 11.2%;
-            --secondary: 217.2 32.6% 17.5%;
-            --secondary-foreground: 210 40% 98%;
-            --muted: 217.2 32.6% 17.5%;
-            --muted-foreground: 215 20.2% 65.1%;
-            --accent: 217.2 32.6% 17.5%;
-            --accent-foreground: 210 40% 98%;
-            --destructive: 0 62.8% 30.6%;
-            --destructive-foreground: 210 40% 98%;
-            --border: 217.2 32.6% 17.5%;
-            --input: 217.2 32.6% 17.5%;
-            --ring: 212.7 26.8% 83.9%;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background: hsl(var(--background));
-            color: hsl(var(--foreground));
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.5;
-        }
-
-        /* Utility Classes */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: hsl(var(--card));
-            color: hsl(var(--card-foreground));
-            border-radius: var(--radius);
-            border: 1px solid hsl(var(--border));
-            box-shadow: 0 4px 20px -8px hsl(var(--foreground) / 0.1);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-        }
-
-        .btn-primary:hover {
-            background: hsl(var(--primary) / 0.9);
-        }
-
-        .btn-hero {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.75rem 2rem;
-            font-size: 1rem;
-        }
-
-        .btn-hero:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid hsl(var(--border));
-            color: hsl(var(--foreground));
-        }
-
-        .btn-outline:hover {
-            background: hsl(var(--accent));
-            color: hsl(var(--accent-foreground));
-        }
-
-        .btn-emergency {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 1rem;
-            flex-direction: column;
-            gap: 0.5rem;
-            height: 120px; /* Fixed height for two buttons to fit */
-            width: 100%;
-        }
-
-        .btn-emergency:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 0.75rem;
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            background: hsl(var(--background));
-            color: hsl(var(--foreground));
-            resize: none;
-            font-family: inherit;
-        }
-
-        .textarea:focus {
-            outline: none;
-            ring: 2px solid hsl(var(--ring));
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            border-radius: var(--radius);
-            border: 1px solid transparent;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: hsl(var(--secondary));
-            color: hsl(var(--secondary-foreground));
-        }
-
-        .badge-outline {
-            background: transparent;
-            border-color: hsl(var(--border));
-            color: hsl(var(--foreground));
-        }
-
-        /* Gradients */
-        .gradient-primary {
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-        }
-
-        .gradient-emergency {
-            background: linear-gradient(135deg, hsl(var(--emergency)), hsl(315 85% 65%));
-        }
-
-        .gradient-subtle {
-            background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
-        }
-
-        /* Modified Emergency Panel Styling */
-        .card.gradient-emergency {
-            width: 400px; /* Adjusted width for two buttons */
-            height: 300px; /* Adjusted height for two buttons */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* Additional utility classes from your code (truncated for brevity) */
-        .grid { display: grid; }
-        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-        .gap-4 { gap: 1rem; }
-        .text-center { text-align: center; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .p-6 { padding: 1.5rem; }
-        .text-2xl { font-size: 1.5rem; }
-        .font-bold { font-weight: 700; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .space-x-2 > * + * { margin-left: 0.5rem; }
-        .text-sm { font-size: 0.875rem; }
-        .opacity-90 { opacity: 0.9; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>College Events Notice Board</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2b6cb0" />
 </head>
 <body>
-    <div class="min-h-screen gradient-subtle">
-        <div class="container py-12 space-y-12">
-            <!-- Emergency Panel -->
-            <div class="card gradient-emergency text-white p-6 animate-float">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold mb-2 flex items-center justify-center space-x-2">
-                        <svg class="h-6 w-6 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
-                        </svg>
-                        <span>Emergency Response</span>
-                    </h2>
-                    <p class="text-sm opacity-90">Instant offline emergency assistance</p>
-                </div>
-                <div class="grid grid-cols-1 gap-4 w-full"> <!-- Single column for two buttons -->
-                    <button class="btn btn-emergency" onclick="handleEmergency('cpr')">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                        <div class="text-center">
-                            <div class="font-medium text-sm">CPR Instructions</div>
-                            <div class="text-xs opacity-80">Life-saving techniques</div>
-                        </div>
-                    </button>
-                    <button class="btn btn-emergency" onclick="handleEmergency('contacts')">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
-                        <div class="text-center">
-                            <div class="font-medium text-sm">Emergency Contacts</div>
-                            <div class="text-xs opacity-80">Quick access numbers</div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <!-- Rest of the content (e.g., Health Categories, Multi-Modal Input) can be added here if needed -->
-        </div>
+  <header class="topbar">
+    <div class="brand">
+      <h1>College Events Notice Board</h1>
+      <p class="tag">All campus events — offline friendly</p>
+    </div>
+    <div class="actions">
+      <button id="installBtn" class="btn small" hidden>📥 Install</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <input id="search" type="search" placeholder="Search events (title, tag, venue)..." />
+      <select id="filterMonth">
+        <option value="">All months</option>
+      </select>
+      <button id="btnNew" class="btn">＋ Add Event</button>
+      <button id="btnExport" class="btn ghost">Export JSON</button>
+    </section>
+
+    <section id="list" class="list">
+      <!-- Event cards injected here -->
+    </section>
+
+    <section id="empty" class="empty muted">No events found.</section>
+
+    <!-- Add / Edit Modal -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h2 id="modalTitle">Add Event</h2>
+        <form id="eventForm">
+          <label>Title
+            <input name="title" required />
+          </label>
+          <label>Date & Time
+            <input type="datetime-local" name="datetime" required />
+          </label>
+          <label>Venue
+            <input name="venue" />
+          </label>
+          <label>Tags (comma separated)
+            <input name="tags" placeholder="club,seminar,exam" />
+          </label>
+          <label>Description
+            <textarea name="description" rows="3"></textarea>
+          </label>
+          <div class="row">
+            <button type="submit" class="btn">Save</button>
+            <button type="button" id="btnCancel" class="btn ghost">Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <script>
-        // Handle emergency actions
-        function handleEmergency(action) {
-            const actions = {
-                guide: "Emergency Guide: 1. Stay calm 2. Assess the situation 3. Call for help if possible 4. Apply first aid if trained",
-                cpr: "CPR Instructions: 1. Check responsiveness 2. Call emergency services 3. 30 chest compressions 4. 2 rescue breaths 5. Repeat",
-                contacts: "Emergency Contacts: 911 (US), 112 (EU), 999 (UK), 000 (AU) - Local emergency services vary by region",
-                hospital: "Finding Hospital: Use GPS if available, ask locals, look for hospital signs with + symbol, call emergency services for directions"
-            };
-            // Placeholder for showing advice - integrate with your full advice display logic
-            console.log(actions[action]); // Replace with actual advice display function
-        }
-    </script>
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+  </main>
+
+  <footer class="footer">
+    <small>Made for college use. Edit <code>data/events.json</code> to add default events.</small>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
 </body>
 </html>
