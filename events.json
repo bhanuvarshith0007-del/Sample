@@ -1,0 +1,40 @@
+  {
+    "id": "base-1",
+    "title": "Freshers Orientation",
+    "datetime": "2025-09-01T10:00",
+    "venue": "Auditorium A",
+    "tags": ["orientation","college"],
+    "description": "Welcome session for new students. Important campus rules and club introductions."
+  },
+  {
+    "id": "base-2",
+    "title": "Tech Talk: Modern Web",
+    "datetime": "2025-09-05T15:30",
+    "venue": "Room 204, CSE Dept",
+    "tags": ["seminar","web","cse"],
+    "description": "Guest talk on modern web development and career paths."
+  },
+  {
+    "id": "base-3",
+    "title": "College Fest - Day 1",
+    "datetime": "2025-09-20T09:00",
+    "venue": "Sports Ground",
+    "tags": ["fest","cultural"],
+    "description": "Music, dance, food stalls — all students welcome."
+  },
+  {
+    "id": "base-4",
+    "title": "Midterm Exams Start",
+    "datetime": "2025-10-10T09:00",
+    "venue": "Exam Halls",
+    "tags": ["exam","important"],
+    "description": "Midterm examination period begins. Check your timetable."
+  },
+  {
+    "id": "base-5",
+    "title": "Workshop: Git & GitHub",
+    "datetime": "2025-09-12T14:00",
+    "venue": "Lab 3",
+    "tags": ["workshop","git"],
+    "description": "Hands-on workshop on version control with Git and GitHub."
+  }
